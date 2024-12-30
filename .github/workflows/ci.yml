@@ -29,22 +29,7 @@ jobs:
       run: |
         python -m unittest discover -s tests
 
-    - name: Deploy to remote server
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        HOST: ${{ secrets.HOST }}
-        USER: ${{ secrets.USER }}
-      run: |
-        echo "$SSH_PRIVATE_KEY" > private_key.pem
-        chmod 600 private_key.pem
-        echo ":User  $USER"
-        echo "Host: $HOST"
-        ssh -i private_key.pem $USER@$HOST "cd /home/shine/calc; git pull; python3 main.py"
-
-
-
-
- - name: Deploy to Render
+    - name: Deploy to Render
       env:
         RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
       run: |
